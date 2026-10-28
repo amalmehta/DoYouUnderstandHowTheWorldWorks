@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do You Understand How the World Works?</title>
+  <meta name="description" content="24 short scenarios about health, politics, work and people. Pick an answer, say how sure you are, and see where your confidence matches reality.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Apply the saved theme before first paint so there's no flash.
+    try {
+      const s = JSON.parse(localStorage.getItem("dyuhtww.v1") || "{}").settings || {};
+      if (s.theme === "light" || s.theme === "dark") document.documentElement.dataset.theme = s.theme;
+      if (s.motion === "reduce") document.documentElement.dataset.motion = "reduce";
+    } catch {}
+  </script>
+</head>
+<body>
+  <div id="splash" aria-hidden="true"><img src="assets/icon.svg" alt=""></div>
+
+  <header class="bar">
+    <button class="brand" data-go="home" aria-label="Home">
+      <img src="assets/icon.svg" alt=""><span>Do You Understand How the World Works?</span>
+    </button>
+    <nav>
+      <button class="ghost" data-go="history" title="Past attempts (H)"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/></svg><span>History</span></button>
+      <button class="ghost" id="open-settings" title="Settings (⌘,)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></button>
+    </nav>
+  </header>
+
+  <main id="view" tabindex="-1"></main>
+
+  <button id="feedback-tab" type="button">Feedback</button>
+
+  <dialog id="settings">
+    <form method="dialog">
+      <h2>Settings</h2>
+      <label class="row"><span>Appearance</span>
+        <select name="theme"><option value="system">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label class="row"><span>Motion</span>
+        <select name="motion"><option value="system">Match system</option><option value="reduce">Reduce</option></select></label>
+      <label class="row"><span>Shuffle answer order</span><input type="checkbox" name="shuffle"></label>
+      <p class="hint">Shuffling stops you learning that the right answer is always first.</p>
+      <h3>Your data</h3>
+      <p class="hint">Answers stay in this browser only. Export a file to keep a copy or move to another device.</p>
+      <div class="actions">
+        <button type="button" data-act="export">Export</button>
+        <button type="button" data-act="upload">Upload…</button>
+        <button type="button" data-act="wipe" class="danger">Delete all</button>
+      </div>
+      <div class="actions end"><button value="close" class="primary">Done</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="feedback">
+    <form method="dialog">
+      <h2>Feedback</h2>
+      <p class="hint">A wrong answer, a confusing question, an idea. Copy it, then paste it into a new GitHub issue (opens in a new tab).</p>
+      <textarea name="text" rows="5" placeholder="Item h3 seems unfair because…"></textarea>
+      <div class="actions end">
+        <button value="cancel">Cancel</button>
+        <button type="button" class="primary" data-act="send">Copy and open GitHub</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="file-input" accept="application/json,.json" hidden>
+  <div id="drop-veil" aria-hidden="true"><div>Drop an exported file to import it</div></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

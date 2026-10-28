@@ -1,0 +1,11 @@
+{
+  "name": "do-you-understand-how-the-world-works",
+  "private": true,
+  "type": "module",
+  "description": "A calibration test: 24 cited scenarios about health, politics, work and people.",
+  "scripts": {
+    "test": "node --test \"tests/*.test.mjs\"",
+    "start": "python3 -m http.server 8642",
+    "samples": "node tests/make-samples.mjs"
+  }
+}

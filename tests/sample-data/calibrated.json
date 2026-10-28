@@ -1,0 +1,206 @@
+{
+  "app": "DoYouUnderstandHowTheWorldWorks",
+  "version": 1,
+  "exported": "2026-10-28T12:00:00Z",
+  "attempts": [
+    {
+      "id": "s-cal",
+      "date": "2026-09-01T10:00:00Z",
+      "started": "2026-09-01T10:00:00Z",
+      "answers": [
+        {
+          "id": "h1",
+          "domain": "health",
+          "choice": 1,
+          "correct": false,
+          "p": 0.5,
+          "ms": 6603
+        },
+        {
+          "id": "h2",
+          "domain": "health",
+          "choice": 1,
+          "correct": false,
+          "p": 0.5,
+          "ms": 8794
+        },
+        {
+          "id": "h3",
+          "domain": "health",
+          "choice": 1,
+          "correct": false,
+          "p": 0.65,
+          "ms": 10796
+        },
+        {
+          "id": "h4",
+          "domain": "health",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 9723
+        },
+        {
+          "id": "h5",
+          "domain": "health",
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 7368
+        },
+        {
+          "id": "h6",
+          "domain": "health",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 4485
+        },
+        {
+          "id": "p1",
+          "domain": "politics",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 12302
+        },
+        {
+          "id": "p2",
+          "domain": "politics",
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 8617
+        },
+        {
+          "id": "p3",
+          "domain": "politics",
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 9794
+        },
+        {
+          "id": "p4",
+          "domain": "politics",
+          "choice": 1,
+          "correct": false,
+          "p": 0.8,
+          "ms": 12175
+        },
+        {
+          "id": "p5",
+          "domain": "politics",
+          "choice": 0,
+          "correct": true,
+          "p": 0.65,
+          "ms": 11535
+        },
+        {
+          "id": "p6",
+          "domain": "politics",
+          "choice": 0,
+          "correct": true,
+          "p": 0.65,
+          "ms": 6679
+        },
+        {
+          "id": "w1",
+          "domain": "work",
+          "choice": 0,
+          "correct": true,
+          "p": 0.65,
+          "ms": 12435
+        },
+        {
+          "id": "w2",
+          "domain": "work",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 11901
+        },
+        {
+          "id": "w3",
+          "domain": "work",
+          "choice": 0,
+          "correct": true,
+          "p": 0.5,
+          "ms": 9046
+        },
+        {
+          "id": "w4",
+          "domain": "work",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 5737
+        },
+        {
+          "id": "w5",
+          "domain": "work",
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 7289
+        },
+        {
+          "id": "w6",
+          "domain": "work",
+          "choice": 1,
+          "correct": false,
+          "p": 0.65,
+          "ms": 12319
+        },
+        {
+          "id": "s1",
+          "domain": "people",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 7651
+        },
+        {
+          "id": "s2",
+          "domain": "people",
+          "choice": 0,
+          "correct": true,
+          "p": 0.65,
+          "ms": 7816
+        },
+        {
+          "id": "s3",
+          "domain": "people",
+          "choice": 0,
+          "correct": true,
+          "p": 0.65,
+          "ms": 9526
+        },
+        {
+          "id": "s4",
+          "domain": "people",
+          "choice": 1,
+          "correct": false,
+          "p": 0.5,
+          "ms": 8121
+        },
+        {
+          "id": "s5",
+          "domain": "people",
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 9709
+        },
+        {
+          "id": "s6",
+          "domain": "people",
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 10201
+        }
+      ]
+    }
+  ]
+}

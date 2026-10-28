@@ -9,6 +9,13 @@ const ITEM_BY_ID = Object.fromEntries([...RETIRED, ...ITEMS].map((i) => [i.id, i
 const DOMAIN_ORDER = ["health", "politics", "work", "people"];
 
 let state = load();
+// An unfinished attempt started on an older question set would keep serving
+// retired questions. Drop it so the next start uses the current set.
+const LIVE_IDS = new Set(ITEMS.map((i) => i.id));
+if (state.inProgress && !state.inProgress.order?.every((id) => LIVE_IDS.has(id))) {
+  state.inProgress = null;
+  save(state);
+}
 const $ = (s, el = document) => el.querySelector(s);
 const view = $("#view");
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);

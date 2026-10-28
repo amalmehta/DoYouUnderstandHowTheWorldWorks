@@ -421,6 +421,7 @@ OPEN QUESTIONS / ASSUMPTIONS:
 CHANGELOG:
 
 - 2026-10-28 — created
+- 2026-10-28 — an unfinished attempt from the old question set is now dropped on load, so retired questions are never served again
 - 2026-10-28 — replaced 16 study-style items with plain "how things work" questions (base-level knowledge of competent people in demanding fields); old items retired, not deleted
 - 2026-10-28 — added reality checks (score guess, sure but wrong vs expected, second look with strong and weak evidence) in response to "gauge if the person is actually delusional"
 - 2026-10-28 — v1 built: web calibration test, 24 cited items, deployed to GitHub Pages; definitions and deferred filled in

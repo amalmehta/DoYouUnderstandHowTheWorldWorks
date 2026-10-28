@@ -20,4 +20,12 @@
 6. "it shouldnt be overly "intellectual" or "test" like questions"
    → Asked what should replace study-style wording. Answer: "yes generally  things competent people in a high-performing industry would know at a base level, how things work". Replaced 16 study-trivia items with plain how-it-works questions (drug approval odds, healthcare spending, generics, the federal budget, who pays income tax, compounding, business survival, pricing, index funds, venting, asking for advice, money and happiness); reworded 4 kept items; fact-checked all of them. Old items kept in js/items-retired.js so past results still display.
 
+7. "These questions still feel off:"
+   → Nothing after the colon (the button's starter text); asked for the specific questions.
+
+8. "open the latest" → Opened the live site.
+
+9. (screenshot of the old prostate-survival question) "this is like an exam q"
+   → It was a retired question served from an unfinished attempt started before the update. Unfinished attempts that use retired questions are now dropped on load.
+
 Answers given in the question widget (summarised): for me, as a mirror; walk away knowing where I'm miscalibrated; scenarios + confidence; a web page with one link; trade-off is "harder to fake, narrower"; reasons: general knowledge (healthcare, politics, people), better decisions at work, read people better, a suspected blind spot, curiosity; I draft and cite, you review; browser-only storage, public repo; all four domains; 24 items; four confidence buttons; calibration-first results.

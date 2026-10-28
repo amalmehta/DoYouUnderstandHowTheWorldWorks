@@ -1,56 +1,26 @@
-// The item bank. Every item is a two-choice scenario with one answer backed
+// The item bank. Every item is a two-choice question with one answer backed
 // by a published source. options[0] is always the correct one; the app
 // shuffles the order on screen. Two choices (not four) so that "Guessing 50%"
 // really is a coin flip, which keeps the calibration chart honest.
 //
+// Since 2026-10-28 the bank aims at base-level "how things work" knowledge a
+// competent person in a demanding field would have: how money, healthcare,
+// government and people actually behave. Plain wording, no study set-ups in
+// the question; the research shows up only in the answer. Replaced items live
+// in items-retired.js so older results still display.
+//
 // `evidence` (6 items) is shown in the second-look round: "strong" points to
 // the right answer, "weak" is real but weak evidence for the wrong one.
-//
-// `illustrative: true` marks items whose numbers are made up to teach a
-// method (the source supports the method, not the specific figures).
 
 export const DOMAINS = {
   health:   { name: "Health & medicine",   short: "Health",   family: "people"  },
   people:   { name: "People & emotions",   short: "People",   family: "people"  },
   politics: { name: "Politics & society",  short: "Politics", family: "systems" },
-  work:     { name: "Economics & work",    short: "Work",     family: "systems" },
+  work:     { name: "Money & work",        short: "Work",     family: "systems" },
 };
 
 export const ITEMS = [
   // ── Health & medicine ──────────────────────────────────────────────
-  {
-    id: "h1", domain: "health",
-    prompt: "A screening test finds 90% of breast cancers and wrongly flags 9% of healthy women. 1% of women screened have cancer. A woman tests positive. How likely is it she has cancer?",
-    options: ["About 1 in 10", "About 9 in 10"],
-    why: "Picture 1,000 women: 10 have cancer and 9 of them test positive. Of the 990 healthy women, about 89 also test positive. So only 9 of 98 positives are real — about 9%.",
-    principle: "When something is rare, false alarms from the many outnumber true hits from the few. Start from the base rate.",
-    source: { label: "Gigerenzer et al. (2007), Psychological Science in the Public Interest", url: "https://doi.org/10.1111/j.1539-6053.2008.00033.x" },
-  },
-  {
-    id: "h2", domain: "health",
-    prompt: "Worldwide in 2023, which killed more people?",
-    options: ["Ischaemic heart disease alone", "HIV/AIDS, tuberculosis and malaria combined"],
-    why: "WHO estimates about 9.5 million deaths from ischaemic heart disease in 2023 — 16% of all deaths. HIV, tuberculosis and malaria together killed well under 3 million (UNAIDS and WHO’s TB and malaria reports).",
-    principle: "Slow, common, unremarkable causes usually outweigh the ones that make headlines.",
-    source: { label: "WHO, The top 10 causes of death (2024)", url: "https://www.who.int/news-room/fact-sheets/detail/the-top-10-causes-of-death" },
-  },
-  {
-    id: "h3", domain: "health", illustrative: true,
-    prompt: "A headline says a pill “cuts heart-attack risk by 50%”. In the trial, heart attacks fell from 2 in 100 people to 1 in 100. How many people must take it for one of them to avoid a heart attack?",
-    options: ["About 100", "About 2"],
-    why: "The absolute drop is 1 in 100, so 100 people take the pill for one to benefit. “50%” is the relative drop (2 → 1), which sounds far bigger.",
-    principle: "Ask “50% of what?” Convert relative risk to absolute numbers out of 100 before judging.",
-    source: { label: "Gigerenzer et al. (2007) on relative vs absolute risk", url: "https://doi.org/10.1111/j.1539-6053.2008.00033.x" },
-  },
-  {
-    id: "h4", domain: "health",
-    evidence: { kind: "weak", text: "Since the mid-1970s, most of the gain in the world’s highest female life expectancy has come from people over 65 living longer: about 58% in 1975–90 and 79% in 1990–2007.", lesson: "True, but about a different period. The same table shows that in 1925–50 most gains came from people under 50.", source: { label: "Christensen et al. (2009), The Lancet, Table 2", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2810516/" } },
-    prompt: "In the US, life expectancy at birth rose by about 20 years between 1900 and 1950. Mostly because…",
-    options: ["Far fewer children and young adults died of infections", "Old people lived much longer"],
-    why: "Clean water, sanitation, vaccines and later antibiotics cut deaths from infections, which hit the young hardest. Saving a child adds decades to the average; saving an 80-year-old adds a few years.",
-    principle: "An average can move because its low end changed, not its top. Ask which part of the distribution moved.",
-    source: { label: "CDC MMWR (1999), Control of Infectious Diseases, 1900–1999", url: "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm4829a1.htm" },
-  },
   {
     id: "h5", domain: "health",
     evidence: { kind: "strong", text: "A Cochrane review pooled randomised trials of antibiotics for the common cold and found people on antibiotics were no more likely to be cured than people on placebo, and adults taking them had more side effects.", lesson: "Pooled randomised trials are among the strongest evidence there is: they control for chance and for wishful thinking.", source: { label: "Kenealy & Arroll (2013), Cochrane Review of randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/23733381/" } },
@@ -61,12 +31,45 @@ export const ITEMS = [
     source: { label: "Kenealy & Arroll (2013), Cochrane Review", url: "https://doi.org/10.1002/14651858.CD000247.pub3" },
   },
   {
-    id: "h6", domain: "health",
-    prompt: "A politician noted 5-year prostate-cancer survival was 82% in the US but 44% in England. Does that show men were less likely to die of prostate cancer in the US?",
-    options: ["No — survival rates can differ even if death rates don’t", "Yes — that’s what survival measures"],
-    why: "Screening finds cancers earlier (the 5-year clock starts sooner) and finds slow cancers that would never kill. Both raise survival without saving anyone. Prostate-cancer death rates in the two countries were similar.",
-    principle: "Compare mortality (deaths per population), not survival (time since diagnosis), when screening differs.",
-    source: { label: "Gigerenzer et al. (2007) on the Giuliani statistic", url: "https://doi.org/10.1111/j.1539-6053.2008.00033.x" },
+    id: "h7", domain: "health",
+    evidence: { kind: "weak", text: "Of drugs that reach the last stage of human trials (Phase 3), about 6 in 10 go on to be approved.", lesson: "True, but about the survivors of the earlier stages. Most drugs fail before they ever reach Phase 3.", source: { label: "Wong, Siah & Lo (2019), Biostatistics", url: "https://doi.org/10.1093/biostatistics/kxx069" } },
+    prompt: "A new drug starts its first tests in people. How likely is it to end up approved?",
+    options: ["About 1 in 7", "About 1 in 2"],
+    why: "Across about 21,000 drugs tested from 2000 to 2015, about 14% of those entering human trials were eventually approved. The rest drop out along the way.",
+    principle: "Ask what share of attempts succeed, not just whether this one sounds promising. Early-stage promise is cheap.",
+    source: { label: "Wong, Siah & Lo (2019), Biostatistics", url: "https://doi.org/10.1093/biostatistics/kxx069" },
+  },
+  {
+    id: "h8", domain: "health",
+    prompt: "In the US, the 5% of people with the highest medical bills account for how much of all healthcare spending?",
+    options: ["About half", "About a sixth"],
+    why: "Spending is extremely concentrated: in 2018 the top 5% of spenders accounted for 48% of all spending, while the bottom half of people accounted for about 3%.",
+    principle: "Many costs follow a few cases. Find the heavy tail before averaging.",
+    source: { label: "AHRQ, Medical Expenditure Panel Survey, Statistical Brief", url: "https://meps.ahrq.gov/data_files/publications/st533/stat533.shtml" },
+  },
+  {
+    id: "h9", domain: "health",
+    prompt: "In the US, what share of prescriptions filled are for generic drugs?",
+    options: ["About 9 in 10", "About 4 in 10"],
+    why: "About 90% of prescriptions are filled with generics, which work the same as the brand version. Brand drugs are the small share of prescriptions but most of the money.",
+    principle: "Count by volume and by money separately. They often tell opposite stories.",
+    source: { label: "U.S. FDA, Generic Drugs", url: "https://www.fda.gov/drugs/buying-using-medicine-safely/generic-drugs" },
+  },
+  {
+    id: "h10", domain: "health",
+    prompt: "An ad says a drug “halves your risk” of a heart attack. On its own, that tells you…",
+    options: ["Little — it depends on how big your risk was to start", "That it’s a big benefit worth taking"],
+    why: "If your risk was 2 in 100, halving it means 1 in 100: 100 people take the drug for one to benefit. “Halves” is a relative number; what matters to you is the absolute change.",
+    principle: "Ask “half of what?” Turn relative claims into numbers out of 100 before judging.",
+    source: { label: "Gigerenzer et al. (2007), Psychological Science in the Public Interest", url: "https://doi.org/10.1111/j.1539-6053.2008.00033.x" },
+  },
+  {
+    id: "h11", domain: "health",
+    prompt: "Of early deaths in the US, roughly how many come down to shortfalls in medical care?",
+    options: ["About 1 in 10 — behaviour, circumstances and genes matter more", "Most of them"],
+    why: "A widely used estimate puts medical-care shortfalls at about 10% of premature deaths. Behaviour (smoking, diet, activity) accounts for about 40%, with genetics, social circumstances and environment making up the rest.",
+    principle: "Healthcare treats illness; most health is made outside the doctor’s office.",
+    source: { label: "McGinnis, Williams-Russo & Knickman (2002), Health Affairs", url: "https://doi.org/10.1377/hlthaff.21.2.78" },
   },
 
   // ── Politics & society ─────────────────────────────────────────────
@@ -89,30 +92,6 @@ export const ITEMS = [
     source: { label: "Our World in Data, Poverty (World Bank data)", url: "https://ourworldindata.org/poverty" },
   },
   {
-    id: "p3", domain: "politics",
-    prompt: "Across six rich countries, people were asked what share of their population are immigrants. Their average guesses were…",
-    options: ["Far too high — often double the real share or more", "About right"],
-    why: "In the US the average guess was about 36% against a real figure near 10%; every country surveyed overestimated.",
-    principle: "What is visible and talked about feels common. Look up the denominator.",
-    source: { label: "Alesina, Miano & Stantcheva (2023), Review of Economic Studies", url: "https://doi.org/10.1093/restud/rdac011" },
-  },
-  {
-    id: "p4", domain: "politics",
-    prompt: "Americans were asked what share of the other party holds extreme views. Compared with what the other side actually reported, their estimates were…",
-    options: ["About double the real share", "Close to the real share"],
-    why: "On average people guessed about 55% of the other side held extreme views; the true figure was about 30%. The gap was largest among the most politically engaged.",
-    principle: "We meet the other side through its loudest voices. The typical member is quieter than the visible one.",
-    source: { label: "More in Common (2019), The Perception Gap", url: "https://perceptiongap.us" },
-  },
-  {
-    id: "p5", domain: "politics",
-    prompt: "In 2025, what share of the world’s one-year-olds had received three doses of the diphtheria–tetanus–pertussis vaccine?",
-    options: ["About 85%", "About 40%"],
-    why: "WHO and UNICEF estimate global DTP3 coverage at 85% in 2025 — about 110 million infants. Most people guess far lower.",
-    principle: "Our picture of “the developing world” is often decades out of date.",
-    source: { label: "WHO, Immunization coverage fact sheet", url: "https://www.who.int/news-room/fact-sheets/detail/immunization-coverage" },
-  },
-  {
     id: "p6", domain: "politics",
     prompt: "Roughly what share of the US federal budget goes to foreign aid?",
     options: ["About 1%", "About 15%"],
@@ -120,106 +99,130 @@ export const ITEMS = [
     principle: "Before arguing about a cost, find its size relative to the whole.",
     source: { label: "KFF (2015), Americans’ views on the U.S. role in global health", url: "https://www.kff.org/global-health-policy/poll-finding/data-note-americans-views-on-the-u-s-role-in-global-health/" },
   },
+  {
+    id: "p7", domain: "politics",
+    prompt: "What’s the single biggest item in the US federal budget?",
+    options: ["Social Security", "Defence"],
+    why: "Social Security is over a fifth of federal spending; defence is about an eighth, less than interest on the debt. Add Medicare and Medicaid and most of the budget is payments to people, mainly older people.",
+    principle: "A budget is mostly its few biggest lines. Know those before debating the small ones.",
+    source: { label: "Congressional Budget Office, The Federal Budget in Fiscal Year 2024", url: "https://www.cbo.gov/publication/61181" },
+  },
+  {
+    id: "p8", domain: "politics",
+    prompt: "The top 10% of US earners pay what share of all federal income tax?",
+    options: ["More than two-thirds", "About a third"],
+    why: "In IRS data for 2022, the top 10% of earners paid 72% of federal income taxes while earning about 49% of all income. (Payroll and other taxes are spread more evenly.)",
+    principle: "When people argue about who pays, ask which tax and which share: of income, or of the tax.",
+    source: { label: "Tax Foundation (2024), summarising IRS data for 2022", url: "https://taxfoundation.org/data/all/federal/latest-federal-income-tax-data-2025/" },
+  },
+  {
+    id: "p9", domain: "politics",
+    prompt: "Of all the bills introduced in a typical recent US Congress, how many become law?",
+    options: ["Fewer than 1 in 20", "About 1 in 3"],
+    why: "Recent Congresses introduce well over 10,000 bills and enact a few hundred, roughly 1–3%. Most bills are signals to voters or donors, never meant to pass.",
+    principle: "A proposal is not a policy. Ask what share of its kind ever happen.",
+    source: { label: "GovTrack, Statistics and historical comparison", url: "https://www.govtrack.us/congress/bills/statistics" },
+  },
 
-  // ── Economics & work ───────────────────────────────────────────────
+  // ── Money & work ───────────────────────────────────────────────────
   {
     id: "w1", domain: "work",
-    prompt: "In a negotiation, making the first offer usually…",
+    prompt: "When you’re negotiating a price, making the first offer usually…",
     options: ["Helps you — it anchors the final price", "Hurts you — it gives away information"],
     why: "In experiments, final prices sat close to whichever side opened first. The exception: if you know far less about the value than the other side, let them open.",
     principle: "The first number on the table pulls every later number toward it (anchoring).",
     source: { label: "Galinsky & Mussweiler (2001), Journal of Personality and Social Psychology", url: "https://doi.org/10.1037/0022-3514.81.4.657" },
   },
   {
-    id: "w2", domain: "work",
-    prompt: "When San Francisco extended rent control to more buildings in 1994, the rental housing those landlords offered…",
-    options: ["Fell by about 15%", "Stayed about the same"],
-    why: "Landlords converted units to condos or rebuilt them to escape control. Tenants already there benefited, but citywide rents rose as supply shrank.",
-    principle: "A rule changes what people choose to do. Ask how the people it constrains will respond.",
-    source: { label: "Diamond, McQuade & Qian (2019), American Economic Review", url: "https://doi.org/10.1257/aer.20181289" },
-  },
-  {
-    id: "w3", domain: "work",
-    prompt: "Students predicted when they would finish their thesis. How many finished by their own best-guess date?",
-    options: ["About 30%", "About 70%"],
-    why: "Only about 30% made their best guess; on average they took about 56 days against a predicted 34. They even overran their “worst case”.",
-    principle: "Planning from the inside imagines the smooth path. Look at how long similar past projects really took (the outside view).",
-    source: { label: "Buehler, Griffin & Ross (1994), Journal of Personality and Social Psychology", url: "https://doi.org/10.1037/0022-3514.67.3.366" },
-  },
-  {
-    id: "w4", domain: "work",
-    prompt: "When Safelite Glass switched windshield installers from hourly pay to pay per windshield, output per worker…",
-    options: ["Rose by about 44%", "Barely changed"],
-    why: "About half the gain came from the same people working harder; the other half from who chose to stay and join.",
-    principle: "Incentives change both effort and who shows up (selection).",
-    source: { label: "Lazear (2000), American Economic Review", url: "https://doi.org/10.1257/aer.90.5.1346" },
-  },
-  {
-    id: "w5", domain: "work",
-    evidence: { kind: "weak", text: "Standard economic theory predicts that raising the cost of an action makes people do it less often: the reasoning behind using fines to deter offences.", lesson: "A theory predicts; data tests. Here the data went the other way, because the fine changed what being late meant.", source: { label: "Becker (1968), Journal of Political Economy", url: "https://doi.org/10.1086/259394" } },
-    prompt: "Day-care centres in Haifa began fining parents who picked up their children late. Late pickups…",
-    options: ["Roughly doubled", "Fell sharply"],
-    why: "The fine turned a social obligation into a price. Parents no longer felt guilty; they were paying for extra time. Removing the fine didn’t undo it.",
-    principle: "Putting a price on something can replace a stronger motive (guilt, duty) with a weaker one.",
-    source: { label: "Gneezy & Rustichini (2000), Journal of Legal Studies", url: "https://doi.org/10.1086/468061" },
-  },
-  {
     id: "w6", domain: "work",
-    prompt: "Which predicts job performance better?",
+    prompt: "When hiring, which predicts how well someone will do the job?",
     options: ["A structured interview: same questions, scored the same way", "A free-flowing conversation"],
     why: "In the largest recent re-analysis, structured interviews were the strongest single predictor; unstructured ones were about half as predictive.",
     principle: "Judgement gets better when you fix the questions and the scoring before you meet the person.",
     source: { label: "Sackett et al. (2022), Journal of Applied Psychology", url: "https://doi.org/10.1037/apl0000994" },
   },
+  {
+    id: "w7", domain: "work",
+    prompt: "You invest $10,000 at 7% a year and leave it alone for 30 years. You end up with about…",
+    options: ["$76,000", "$31,000"],
+    why: "Each year’s growth earns growth too: 10,000 × 1.07³⁰ ≈ 76,000. $31,000 is what you’d get if only the original $10,000 earned 7% each year.",
+    principle: "Compounding is slow, then fast. Most of the gain comes in the last third of the time.",
+    source: { label: "U.S. SEC, Investor.gov compound interest calculator", url: "https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" },
+  },
+  {
+    id: "w8", domain: "work",
+    prompt: "Of new US businesses (all kinds, not just tech startups), how many are still going five years later?",
+    options: ["About half", "About 1 in 10"],
+    why: "Government data show about half of new businesses survive five years, and about a third last ten. “9 in 10 fail” is a myth about all businesses.",
+    principle: "Check a scary statistic against the official count. Folk numbers drift toward drama.",
+    source: { label: "U.S. Bureau of Labor Statistics, Business Employment Dynamics: establishment age and survival", url: "https://www.bls.gov/bdm/bdmage.htm" },
+  },
+  {
+    id: "w9", domain: "work",
+    prompt: "For a typical large company, which raises operating profit more?",
+    options: ["Raising prices 1%", "Cutting variable costs 1%"],
+    why: "In McKinsey’s analysis of an average S&P 1500 company, a 1% price rise (with volume holding steady) lifted operating profit about 8%, roughly 50% more than a 1% cut in variable costs. Price falls straight to profit.",
+    principle: "Small changes to the biggest number on the page move the bottom line most. Price is usually that number.",
+    source: { label: "Marn, Roegner & Zawada (2003), McKinsey Quarterly, “The power of pricing”", url: "https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-power-of-pricing" },
+  },
+  {
+    id: "w10", domain: "work",
+    prompt: "Over 15 years, what share of US funds that pick large-company stocks beat a simple S&P 500 index fund?",
+    options: ["About 1 in 10", "About half"],
+    why: "S&P’s scorecard finds about 9 in 10 actively managed large-cap funds (89.5% to the end of 2024) trailed the index over 15 years, mostly because of fees, and last year’s winners rarely stay on top.",
+    principle: "Before paying for skill, check how often skill beats the cheap default over a long stretch.",
+    source: { label: "S&P Dow Jones Indices, SPIVA U.S. Scorecard", url: "https://www.spglobal.com/spdji/en/spiva/article/spiva-us/" },
+  },
 
   // ── People & emotions ──────────────────────────────────────────────
   {
-    id: "s1", domain: "people",
-    prompt: "Junior professors predicted being denied tenure would leave them much less happy for years. A few years later, those actually denied were…",
-    options: ["About as happy as those who got it", "Much less happy"],
-    why: "People overestimate how long bad events will hurt (the impact bias) because they forget how quickly they make sense of setbacks and adapt.",
-    principle: "When predicting how you’ll feel, remember that you’ll also cope.",
-    source: { label: "Gilbert et al. (1998), Journal of Personality and Social Psychology", url: "https://doi.org/10.1037/0022-3514.75.3.617" },
-  },
-  {
-    id: "s2", domain: "people",
-    prompt: "Students walked into a room wearing an embarrassing T-shirt. They guessed about half the room noticed. The real share was…",
-    options: ["About a quarter", "About half or more"],
-    why: "Wearers guessed 46%; about 23% noticed. We are the centre of our own attention, not other people’s (the spotlight effect).",
-    principle: "Others are mostly thinking about themselves. Halve your estimate of how much they notice.",
-    source: { label: "Gilovich, Medvec & Savitsky (2000), Journal of Personality and Social Psychology", url: "https://doi.org/10.1037/0022-3514.78.2.211" },
-  },
-  {
     id: "s3", domain: "people",
     evidence: { kind: "strong", text: "Across five studies, including first-year college students rating their dorm mates over several months, people systematically underestimated how much their conversation partners liked them.", lesson: "Five studies, one following real people for months, make a finding hard to dismiss as a lab quirk.", source: { label: "Boothby, Cooney, Sandstrom & Clark (2018), Psychological Science", url: "https://doi.org/10.1177/0956797618783714" } },
-    prompt: "After a first conversation with a stranger, people typically…",
-    options: ["Underestimate how much the other person liked them", "Overestimate it"],
-    why: "Partners liked them more than they thought (the liking gap), across lab chats and real first-year roommates. We dwell on our own awkward moments.",
+    prompt: "You just had a first conversation with someone new. Compared with what you think, they probably liked you…",
+    options: ["More", "Less"],
+    why: "Partners liked people more than they thought (the liking gap), across lab chats and first-year college dorm mates. We dwell on our own awkward moments.",
     principle: "Your inner critic is not the other person. Assume you came across a bit better than it felt.",
     source: { label: "Boothby et al. (2018), Psychological Science", url: "https://doi.org/10.1177/0956797618783714" },
   },
   {
     id: "s4", domain: "people",
-    prompt: "When people judge whether someone is lying from how they speak and behave, they are right about…",
-    options: ["54% of the time — barely better than a coin", "75% of the time"],
-    why: "A review of 206 studies found 54% accuracy on average, and experts were barely better. Liars and truth-tellers look much alike.",
+    prompt: "How good are people at telling when someone is lying from their face, voice and body language?",
+    options: ["Barely better than a coin flip", "Right about three times in four"],
+    why: "A review of 206 research reports found 54% accuracy on average, and experts were barely better. Liars and truth-tellers look much alike.",
     principle: "Demeanour is weak evidence. Check facts and consistency, not eye contact.",
     source: { label: "Bond & DePaulo (2006), Personality and Social Psychology Review", url: "https://doi.org/10.1207/s15327957pspr1003_2" },
   },
   {
-    id: "s5", domain: "people",
-    prompt: "Train commuters were asked to talk to a stranger, or to sit alone as usual. Those who talked rated their ride as…",
-    options: ["More pleasant", "Less pleasant, as they had predicted"],
-    why: "Commuters expected chatting to be worse, and expected strangers not to want to talk. Both predictions were wrong.",
-    principle: "We underrate how much others want connection, so we reach out less than would make us happy.",
-    source: { label: "Epley & Schroeder (2014), Journal of Experimental Psychology: General", url: "https://doi.org/10.1037/a0037323" },
+    id: "s7", domain: "people",
+    prompt: "When you’re furious, “letting it out” (hitting a pillow, yelling) tends to leave you…",
+    options: ["Angrier and more aggressive", "Calmer"],
+    why: "People who vented on a punching bag while thinking about the person who angered them were more aggressive afterwards than people who sat quietly.",
+    principle: "Rehearsing a feeling strengthens it. To cool down, do something that lowers arousal.",
+    source: { label: "Bushman (2002), Personality and Social Psychology Bulletin", url: "https://doi.org/10.1177/0146167202289002" },
   },
   {
-    id: "s6", domain: "people",
-    prompt: "After being insulted, people hit a punching bag while thinking about the person who did it. Afterwards, compared with people who sat quietly, they were…",
-    options: ["More aggressive", "Less aggressive — they’d let it out"],
-    why: "Venting kept the anger rehearsed. Doing nothing for a few minutes reduced aggression more.",
-    principle: "Rehearsing an emotion feeds it. Let arousal fall first, then deal with the cause.",
-    source: { label: "Bushman (2002), Personality and Social Psychology Bulletin", url: "https://doi.org/10.1177/0146167202289002" },
+    id: "s8", domain: "people",
+    prompt: "You walk into a room with an embarrassing stain on your shirt. Compared with what you’d guess, the number of people who notice is…",
+    options: ["About half as many", "About as many"],
+    why: "People wearing an embarrassing T-shirt guessed about half the room noticed; about a quarter did (the spotlight effect).",
+    principle: "You are the centre of your own attention, not other people’s.",
+    source: { label: "Gilovich, Medvec & Savitsky (2000), Journal of Personality and Social Psychology", url: "https://doi.org/10.1037/0022-3514.78.2.211" },
+  },
+  {
+    id: "s9", domain: "people",
+    evidence: { kind: "weak", text: "A famous 2010 study of 450,000 survey answers found that day-to-day emotional wellbeing stopped rising above about $75,000 a year.", lesson: "True, but it used yes/no questions about yesterday. Re-analysing finer data together in 2023, its author and a critic found the plateau only for the least happy fifth of people.", source: { label: "Kahneman & Deaton (2010), PNAS", url: "https://doi.org/10.1073/pnas.1011492107" } },
+    prompt: "Above a comfortable income, does more money keep making most people happier day to day?",
+    options: ["Yes, though each extra dollar matters less", "No, it levels off around $75,000"],
+    why: "In a 2023 joint analysis, Kahneman and Killingsworth found that for most people wellbeing keeps rising with income, roughly by the same amount each time income doubles. Only the least happy fifth plateau.",
+    principle: "When a famous finding meets newer, finer data, check which one its own authors now stand behind.",
+    source: { label: "Killingsworth, Kahneman & Mellers (2023), PNAS", url: "https://doi.org/10.1073/pnas.2208661120" },
+  },
+  {
+    id: "s10", domain: "people",
+    prompt: "At work, asking a colleague for advice tends to make them see you as…",
+    options: ["More competent", "Less competent"],
+    why: "In experiments, people who asked for advice were rated more competent, especially on hard tasks and when they asked the person judging them. Being asked flatters.",
+    principle: "People worry that asking looks weak; to the person asked, it looks like good judgement.",
+    source: { label: "Brooks, Gino & Schweitzer (2015), Management Science", url: "https://doi.org/10.1287/mnsc.2014.2054" },
   },
 ];

@@ -1,6 +1,6 @@
 # System design
 
-**What it is.** A 24-item calibration test that runs as one static web page. Each item is a short real-world scenario with two answers. You pick one and say how sure you are. At the end it shows where your confidence matched reality and where it didn't, by domain, with the source behind every answer.
+**What it is.** A 24-item calibration test that runs as one static web page. Each item is a plain question about how something works (healthcare, budgets, money, people), with two answers. You pick one and say how sure you are. At the end it shows where your confidence matched reality and where it didn't, by domain, with the source behind every answer.
 
 **Who it's for (v1).** One person, the author, using it as a mirror for blind spots. Anyone with the link can take it, but nothing is designed for comparing people or screening them.
 
@@ -51,7 +51,7 @@ See the spec's DEFINITIONS section; the code in `scoring.js` is the source of tr
 
 - **Two options, not four.** With two options, "Guessing" really means 50%, so the chart's diagonal is honest. Cost: a lucky guess is right half the time, so per-item results are noisy. That's why verdicts use SE thresholds.
 - **No "delusional" label.** The author asked whether the test could gauge whether someone is "actually delusional". A quiz can't diagnose a clinical delusion, so the test reports three behaviours instead (overestimating your score, being sure but wrong, how you respond to evidence) and calls none of them a diagnosis.
-- **Weak evidence is real, not invented.** Each weak snippet is true and sourced but weak for the question asked: an opinion poll, a theory's prediction, a fact about a different period. That's what lets the round tell weighing evidence apart from deferring to it, without fabricating anything.
+- **Weak evidence is real, not invented.** Each weak snippet is true and sourced but weak for the question asked: an opinion poll, an older and coarser study, a fact about a later stage. That's what lets the round tell weighing evidence apart from deferring to it, without fabricating anything.
 - **Answers revealed only at the end.** Seeing answers mid-way would teach you to adjust and muddy the calibration reading. Cost: less instant feedback.
 - **Hand-written, cited items rather than AI-generated ones.** AI-written questions could cite sources that don't say what they claim. Cost: a fixed bank of 24, so retakes partly test memory (noted in limits).
 - **No framework, no build step.** Plain ES modules. A static page needs none, and nothing breaks when a dependency updates.

@@ -28,3 +28,13 @@ test("second look: 6 evidence items, 3 strong and 3 weak, each sourced", () => {
     assert.match(i.evidence.source.url, /^https:\/\//, i.id);
   }
 });
+
+test("retired items keep older attempts readable and never clash with current ids", async () => {
+  const { RETIRED } = await import("../js/items-retired.js");
+  const { readFileSync } = await import("node:fs");
+  const live = new Set(ITEMS.map((i) => i.id));
+  for (const r of RETIRED) assert.ok(!live.has(r.id), r.id);
+  const known = new Set([...live, ...RETIRED.map((r) => r.id)]);
+  const old = JSON.parse(readFileSync(new URL("./sample-data/v1-items.json", import.meta.url)));
+  for (const t of old.attempts) for (const a of t.answers) assert.ok(known.has(a.id), a.id);
+});

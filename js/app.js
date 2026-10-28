@@ -1,9 +1,11 @@
 import { ITEMS, DOMAINS } from "./items.js";
+import { RETIRED } from "./items-retired.js";
 import { CONFIDENCE, score, headline, maxSE, guessCheck, secondLook, MOVE_CUTOFFS } from "./scoring.js";
 import { load, save, exportData, importData } from "./store.js";
 
 const REPO = "https://github.com/amalmehta/DoYouUnderstandHowTheWorldWorks";
-const ITEM_BY_ID = Object.fromEntries(ITEMS.map((i) => [i.id, i]));
+// Retired items stay findable so older attempts still show their questions.
+const ITEM_BY_ID = Object.fromEntries([...RETIRED, ...ITEMS].map((i) => [i.id, i]));
 const DOMAIN_ORDER = ["health", "politics", "work", "people"];
 
 let state = load();
@@ -65,7 +67,7 @@ function renderHome() {
   mount(`
     <section class="hero">
       <h1>Do you understand how the world works?</h1>
-      <p class="lede">24 short real-world situations about health, politics, work and people. Pick what you think is true, then say how sure you are. At the end you’ll see where your confidence matched reality, how you respond to new evidence, and the source behind every answer.</p>
+      <p class="lede">24 plain questions about how health, money, government and people actually work. Pick what you think is true, then say how sure you are. At the end you’ll see where your confidence matched reality, how you respond to new evidence, and the source behind every answer.</p>
       <div class="cta">
         ${ip
           ? `<button class="primary big" data-act="resume">Resume · question ${ip.answers.length + 1} of ${ip.order.length}</button>
@@ -301,7 +303,7 @@ function realityChecks(attempt, s) {
       <summary>What these mean, and how they can mislead</summary>
       <p style="margin-top:12px"><b>Your guess.</b> A guess well above your score means your sense of what you know runs ahead of what you know. It’s one number from one sitting: a few lucky or unlucky coin-flip answers move your score by 2–3, so only a miss of more than about ${Math.round(Math.sqrt(0.25 * o.n))} counts.</p>
       <p><b>Sure but wrong.</b> If you say “80% sure” five times, about one should be wrong. Adding up (1 − confidence) over your sure answers gives how many misses your own confidence predicted. Many more than that is the clearest sign of holding beliefs more firmly than the evidence allows.</p>
-      <p><b>Second look.</b> Think of a good judge: a fingerprint should change their mind, a rumour shouldn’t. Three pieces of new information were strong (randomised trials, official data, repeated studies) and pointed to the right answer. Three were real but weak (opinion polls, a theory’s prediction, a true fact about a different era) and pointed to the wrong one. “Moved 60% of the way” means you closed 60% of the gap between your first answer and the most you could have agreed with the evidence.</p>
+      <p><b>Second look.</b> Think of a good judge: a fingerprint should change their mind, a rumour shouldn’t. Three pieces of new information were strong (randomised trials, official data, repeated studies) and pointed to the right answer. Three were real but weak (opinion polls, an older and coarser study, a true fact about a later stage) and pointed to the wrong one. “Moved 60% of the way” means you closed 60% of the gap between your first answer and the most you could have agreed with the evidence.</p>
       <p>Moving for both kinds suggests deferring to whatever you’re shown; moving for neither suggests sticking to a first answer. The cut-offs (${MOVE_CUTOFFS.strong * 100}% for strong, ${MOVE_CUTOFFS.weak * 100}% for weak) were chosen by hand, not validated, and with three items each a single answer can change the pattern.</p>
       <p class="hint">General rule to reuse: weigh new information by how it was produced, not by whether it agrees with you.</p>
     </details>

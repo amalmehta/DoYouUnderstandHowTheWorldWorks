@@ -4,6 +4,7 @@
 index.html              The page: header, dialogs (settings, feedback), splash
 css/style.css           All styling; light/dark tokens; domain colours; animations
 js/items.js             The 24 questions, their answers, explanations and sources
+js/items-retired.js     Questions replaced in an update, kept so older results still display
 js/scoring.js           Accuracy, calibration, Brier score, verdicts (pure, tested)
 js/store.js             Local storage, export/import and validation (tested)
 js/app.js               Screens, keyboard, file drop/paste, settings, feedback

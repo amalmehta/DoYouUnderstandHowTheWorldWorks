@@ -2,7 +2,7 @@
 
 # Do You Understand How the World Works?
 
-24 short real-world scenarios about health, politics, work and people. Guess your score, pick answers, say how sure you are, then take a second look with new evidence. See where your confidence matches reality and whether you weigh evidence by its quality. Every answer links to its source.
+24 plain questions about how health, money, government and people actually work. Guess your score, pick answers, say how sure you are, then take a second look with new evidence. See where your confidence matches reality and whether you weigh evidence by its quality. Every answer links to its source.
 
 **[Take it →](https://amalmehta.github.io/DoYouUnderstandHowTheWorldWorks/)**
 
@@ -12,7 +12,7 @@
 
 ```mermaid
 flowchart LR
-  Q[24 scenarios<br/>2 answers each] --> C[Your answer +<br/>50 / 65 / 80 / 95% sure] --> R[Calibration chart,<br/>domains, sure-but-wrong]
+  Q[24 questions<br/>2 answers each] --> C[Your answer +<br/>50 / 65 / 80 / 95% sure] --> R[Calibration chart,<br/>domains, sure-but-wrong]
 ```
 
 - [How to run and use it](docs/INSTRUCTIONS.md)

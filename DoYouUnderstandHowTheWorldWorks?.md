@@ -397,7 +397,7 @@ DEFINITIONS AND DEFERRED:
 Answers recorded 2026-10-28: for the author first, as a mirror; outcome = where you're miscalibrated; method = scenarios + confidence; form = one web page; storage = browser only; repo = public; 4 domains; 24 items; 4 confidence buttons; calibration-first results.
 
 - "Understands how the world works": knows well-replicated findings and real base rates about health, society, economics/work and people, AND knows how sure to be. Measured only through the 24 items; not a measure of character or emotional skill in the moment.
-- Item: a two-choice scenario with one answer supported by a cited published source (paper DOI or official statistics). Numbers marked "illustrative" are invented to teach a method.
+- Item: a plain two-choice question about how something works (health, money, government, people), pitched at what a competent person in a demanding field would know, with one answer supported by a cited published source (paper DOI or official statistics). No study set-up in the question; the research appears only in the answer. Numbers marked "illustrative" are invented to teach a method.
 - Confidence levels: Guessing 0.50, Leaning 0.65, Fairly sure 0.80, Certain 0.95.
 - Accuracy = correct / answered. Gap = mean confidence − accuracy (positive = overconfident).
 - Verdict: SE = sqrt(0.25 / n). |gap| ≤ 1 SE → within noise (or "too few items to tell" when n < 10); 1–2 SE → probably; > 2 SE → clearly.
@@ -421,6 +421,7 @@ OPEN QUESTIONS / ASSUMPTIONS:
 CHANGELOG:
 
 - 2026-10-28 — created
+- 2026-10-28 — replaced 16 study-style items with plain "how things work" questions (base-level knowledge of competent people in demanding fields); old items retired, not deleted
 - 2026-10-28 — added reality checks (score guess, sure but wrong vs expected, second look with strong and weak evidence) in response to "gauge if the person is actually delusional"
 - 2026-10-28 — v1 built: web calibration test, 24 cited items, deployed to GitHub Pages; definitions and deferred filled in
 - 2026-09-15 — added meta-instruction: built-out applications include a small feedback tab

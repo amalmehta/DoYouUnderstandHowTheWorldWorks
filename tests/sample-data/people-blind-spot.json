@@ -9,7 +9,7 @@
       "started": "2026-10-20T10:00:00Z",
       "answers": [
         {
-          "id": "h1",
+          "id": "h5",
           "domain": "health",
           "choice": 0,
           "correct": true,
@@ -17,7 +17,7 @@
           "ms": 12512
         },
         {
-          "id": "h2",
+          "id": "h7",
           "domain": "health",
           "choice": 0,
           "correct": true,
@@ -25,7 +25,7 @@
           "ms": 5203
         },
         {
-          "id": "h3",
+          "id": "h8",
           "domain": "health",
           "choice": 0,
           "correct": true,
@@ -33,7 +33,7 @@
           "ms": 10074
         },
         {
-          "id": "h4",
+          "id": "h9",
           "domain": "health",
           "choice": 0,
           "correct": true,
@@ -41,7 +41,7 @@
           "ms": 8107
         },
         {
-          "id": "h5",
+          "id": "h10",
           "domain": "health",
           "choice": 1,
           "correct": false,
@@ -49,7 +49,7 @@
           "ms": 7803
         },
         {
-          "id": "h6",
+          "id": "h11",
           "domain": "health",
           "choice": 0,
           "correct": true,
@@ -73,7 +73,7 @@
           "ms": 6071
         },
         {
-          "id": "p3",
+          "id": "p6",
           "domain": "politics",
           "choice": 0,
           "correct": true,
@@ -81,7 +81,7 @@
           "ms": 12769
         },
         {
-          "id": "p4",
+          "id": "p7",
           "domain": "politics",
           "choice": 0,
           "correct": true,
@@ -89,7 +89,7 @@
           "ms": 12330
         },
         {
-          "id": "p5",
+          "id": "p8",
           "domain": "politics",
           "choice": 0,
           "correct": true,
@@ -97,7 +97,7 @@
           "ms": 5099
         },
         {
-          "id": "p6",
+          "id": "p9",
           "domain": "politics",
           "choice": 0,
           "correct": true,
@@ -113,7 +113,7 @@
           "ms": 4703
         },
         {
-          "id": "w2",
+          "id": "w6",
           "domain": "work",
           "choice": 0,
           "correct": true,
@@ -121,7 +121,7 @@
           "ms": 9819
         },
         {
-          "id": "w3",
+          "id": "w7",
           "domain": "work",
           "choice": 0,
           "correct": true,
@@ -129,7 +129,7 @@
           "ms": 8326
         },
         {
-          "id": "w4",
+          "id": "w8",
           "domain": "work",
           "choice": 1,
           "correct": false,
@@ -137,7 +137,7 @@
           "ms": 4677
         },
         {
-          "id": "w5",
+          "id": "w9",
           "domain": "work",
           "choice": 0,
           "correct": true,
@@ -145,7 +145,7 @@
           "ms": 6830
         },
         {
-          "id": "w6",
+          "id": "w10",
           "domain": "work",
           "choice": 0,
           "correct": true,
@@ -153,7 +153,7 @@
           "ms": 4055
         },
         {
-          "id": "s1",
+          "id": "s3",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -161,7 +161,7 @@
           "ms": 4822
         },
         {
-          "id": "s2",
+          "id": "s4",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -169,7 +169,7 @@
           "ms": 12317
         },
         {
-          "id": "s3",
+          "id": "s7",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -177,7 +177,7 @@
           "ms": 10875
         },
         {
-          "id": "s4",
+          "id": "s8",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -185,7 +185,7 @@
           "ms": 11694
         },
         {
-          "id": "s5",
+          "id": "s9",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -193,7 +193,7 @@
           "ms": 11209
         },
         {
-          "id": "s6",
+          "id": "s10",
           "domain": "people",
           "choice": 1,
           "correct": false,
@@ -204,7 +204,19 @@
       "guess": 20,
       "secondLook": [
         {
-          "id": "h4",
+          "id": "h5",
+          "kind": "strong",
+          "before": {
+            "choice": 0,
+            "p": 0.8
+          },
+          "after": {
+            "choice": 0,
+            "p": 0.8
+          }
+        },
+        {
+          "id": "h7",
           "kind": "weak",
           "before": {
             "choice": 0,
@@ -212,18 +224,6 @@
           },
           "after": {
             "choice": 1,
-            "p": 0.8
-          }
-        },
-        {
-          "id": "h5",
-          "kind": "strong",
-          "before": {
-            "choice": 1,
-            "p": 0.8
-          },
-          "after": {
-            "choice": 0,
             "p": 0.8
           }
         },
@@ -252,18 +252,6 @@
           }
         },
         {
-          "id": "w5",
-          "kind": "weak",
-          "before": {
-            "choice": 0,
-            "p": 0.8
-          },
-          "after": {
-            "choice": 1,
-            "p": 0.8
-          }
-        },
-        {
           "id": "s3",
           "kind": "strong",
           "before": {
@@ -272,6 +260,18 @@
           },
           "after": {
             "choice": 0,
+            "p": 0.8
+          }
+        },
+        {
+          "id": "s9",
+          "kind": "weak",
+          "before": {
+            "choice": 1,
+            "p": 0.8
+          },
+          "after": {
+            "choice": 1,
             "p": 0.8
           }
         }

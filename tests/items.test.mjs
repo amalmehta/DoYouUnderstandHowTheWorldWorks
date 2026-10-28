@@ -17,3 +17,14 @@ test("every item has two distinct options, an explanation and an https source", 
     assert.ok(i.source.label.length > 5, i.id);
   }
 });
+
+test("second look: 6 evidence items, 3 strong and 3 weak, each sourced", () => {
+  const ev = ITEMS.filter((i) => i.evidence);
+  assert.equal(ev.length, 6);
+  assert.equal(ev.filter((i) => i.evidence.kind === "strong").length, 3);
+  assert.equal(ev.filter((i) => i.evidence.kind === "weak").length, 3);
+  for (const i of ev) {
+    assert.ok(i.evidence.text.length > 30 && i.evidence.lesson.length > 20, i.id);
+    assert.match(i.evidence.source.url, /^https:\/\//, i.id);
+  }
+});

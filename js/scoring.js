@@ -69,3 +69,51 @@ export function headline(overall) {
     default: return "No answers yet.";
   }
 }
+
+// ── Reality checks ─────────────────────────────────────────────────
+
+// Guessed score vs actual. The count of n coin-flip-like items wobbles by
+// about √(0.25·n) by chance (≈ 2.4 for 24), so smaller misses are "about right".
+export function guessCheck(guess, correct, n) {
+  if (!Number.isInteger(guess) || !n) return null;
+  const diff = guess - correct;
+  const se = Math.sqrt(0.25 * n);
+  const dir = diff > 0 ? "above" : "below";
+  let level = "close", text = "About right";
+  if (Math.abs(diff) > 2 * se) { level = "far"; text = `Well ${dir} what you scored`; }
+  else if (Math.abs(diff) > se) { level = "some"; text = `Somewhat ${dir} what you scored`; }
+  return { guess, correct, n, diff, level, text };
+}
+
+// Second look: each entry shows one piece of evidence after the first answer.
+// "strong" evidence points to the correct answer, "weak" to the wrong one.
+// q = probability you put on the correct answer. Movement is measured as the
+// share of the available room you moved toward the evidence (−1 … 1), so
+// someone already at 95% isn't penalised for having nowhere to go.
+const qCorrect = ({ choice, p }) => (choice === 0 ? p : 1 - p);
+export const MOVE_CUTOFFS = { strong: 0.5, weak: 0.25 }; // editorial, not validated
+
+export function secondLook(entries = []) {
+  const moves = { strong: [], weak: [] };
+  const rows = [];
+  for (const e of entries) {
+    if (!e?.before || !e?.after || !(e.kind in moves)) continue;
+    const q0 = qCorrect(e.before), q1 = qCorrect(e.after);
+    const room = e.kind === "strong" ? 0.95 - q0 : q0 - 0.05;
+    const moved = e.kind === "strong" ? q1 - q0 : q0 - q1;
+    const share = room > 0.001 ? Math.max(-1, Math.min(1, moved / room)) : null;
+    if (share !== null) moves[e.kind].push(share);
+    rows.push({ ...e, q0, q1, share, switched: e.before.choice !== e.after.choice });
+  }
+  const avg = (a) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : null);
+  const strong = avg(moves.strong), weak = avg(moves.weak);
+  let pattern = "unknown", text = "Not enough second-look answers to tell.";
+  if (strong !== null && weak !== null) {
+    const s = strong >= MOVE_CUTOFFS.strong, w = weak > MOVE_CUTOFFS.weak;
+    if (s && !w) { pattern = "weighs"; text = "You moved a lot for strong evidence and little for weak evidence."; }
+    else if (s && w) { pattern = "defers"; text = "You moved for strong and weak evidence alike: any evidence shifted you."; }
+    else if (!s && !w) { pattern = "sticks"; text = "You moved little, even for strong evidence."; }
+    else { pattern = "backwards"; text = "You moved more for weak evidence than for strong."; }
+  }
+  return { strong, weak, nStrong: moves.strong.length, nWeak: moves.weak.length, pattern, text, rows };
+}

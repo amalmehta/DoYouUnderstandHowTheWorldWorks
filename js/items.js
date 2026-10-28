@@ -3,6 +3,9 @@
 // shuffles the order on screen. Two choices (not four) so that "Guessing 50%"
 // really is a coin flip, which keeps the calibration chart honest.
 //
+// `evidence` (6 items) is shown in the second-look round: "strong" points to
+// the right answer, "weak" is real but weak evidence for the wrong one.
+//
 // `illustrative: true` marks items whose numbers are made up to teach a
 // method (the source supports the method, not the specific figures).
 
@@ -41,6 +44,7 @@ export const ITEMS = [
   },
   {
     id: "h4", domain: "health",
+    evidence: { kind: "weak", text: "Since the mid-1970s, most of the gain in the world’s highest female life expectancy has come from people over 65 living longer: about 58% in 1975–90 and 79% in 1990–2007.", lesson: "True, but about a different period. The same table shows that in 1925–50 most gains came from people under 50.", source: { label: "Christensen et al. (2009), The Lancet, Table 2", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2810516/" } },
     prompt: "In the US, life expectancy at birth rose by about 20 years between 1900 and 1950. Mostly because…",
     options: ["Far fewer children and young adults died of infections", "Old people lived much longer"],
     why: "Clean water, sanitation, vaccines and later antibiotics cut deaths from infections, which hit the young hardest. Saving a child adds decades to the average; saving an 80-year-old adds a few years.",
@@ -49,6 +53,7 @@ export const ITEMS = [
   },
   {
     id: "h5", domain: "health",
+    evidence: { kind: "strong", text: "A Cochrane review pooled randomised trials of antibiotics for the common cold and found people on antibiotics were no more likely to be cured than people on placebo, and adults taking them had more side effects.", lesson: "Pooled randomised trials are among the strongest evidence there is: they control for chance and for wishful thinking.", source: { label: "Kenealy & Arroll (2013), Cochrane Review of randomised trials", url: "https://pubmed.ncbi.nlm.nih.gov/23733381/" } },
     prompt: "For an otherwise healthy adult with a common cold, antibiotics…",
     options: ["Don’t make it end sooner", "Shorten it by a day or two"],
     why: "Colds are caused by viruses; antibiotics act on bacteria. A Cochrane review of randomised trials found no benefit, and more side effects.",
@@ -67,6 +72,7 @@ export const ITEMS = [
   // ── Politics & society ─────────────────────────────────────────────
   {
     id: "p1", domain: "politics",
+    evidence: { kind: "weak", text: "In 23 of 27 Gallup polls since 1993, at least 60% of Americans said there was more crime in the US than the year before.", lesson: "Polls measure what people believe about crime, not how much crime happened. The FBI’s counts show it fell by about half.", source: { label: "Pew Research Center (2024), summarising Gallup polls", url: "https://www.pewresearch.org/short-reads/2024/04/24/what-the-data-says-about-crime-in-the-us/" } },
     prompt: "Between 1993 and 2022, the US violent-crime rate (FBI data)…",
     options: ["Fell by about half", "Rose"],
     why: "FBI rates fell about 49%, from about 747 to about 381 violent crimes per 100,000 people. Yet in 23 of 27 Gallup polls since 1993, at least 60% of Americans said crime was rising.",
@@ -75,6 +81,7 @@ export const ITEMS = [
   },
   {
     id: "p2", domain: "politics",
+    evidence: { kind: "strong", text: "World Bank household-survey data, compiled by Our World in Data: the share of people below the $3-a-day poverty line fell from about 44% in 1990 to about 10% in 2025.", lesson: "Surveys of households in most countries, repeated over decades, outweigh any impression from the news.", source: { label: "Our World in Data, Poverty (World Bank household surveys)", url: "https://ourworldindata.org/poverty" } },
     prompt: "Since 1990, the share of the world’s people living in extreme poverty has…",
     options: ["More than halved", "Stayed about the same"],
     why: "By the World Bank’s current $3-a-day line it fell from about 44% in 1990 to about 10% today, even as the population grew.",
@@ -149,6 +156,7 @@ export const ITEMS = [
   },
   {
     id: "w5", domain: "work",
+    evidence: { kind: "weak", text: "Standard economic theory predicts that raising the cost of an action makes people do it less often: the reasoning behind using fines to deter offences.", lesson: "A theory predicts; data tests. Here the data went the other way, because the fine changed what being late meant.", source: { label: "Becker (1968), Journal of Political Economy", url: "https://doi.org/10.1086/259394" } },
     prompt: "Day-care centres in Haifa began fining parents who picked up their children late. Late pickups…",
     options: ["Roughly doubled", "Fell sharply"],
     why: "The fine turned a social obligation into a price. Parents no longer felt guilty; they were paying for extra time. Removing the fine didn’t undo it.",
@@ -183,6 +191,7 @@ export const ITEMS = [
   },
   {
     id: "s3", domain: "people",
+    evidence: { kind: "strong", text: "Across five studies, including first-year college students rating their dorm mates over several months, people systematically underestimated how much their conversation partners liked them.", lesson: "Five studies, one following real people for months, make a finding hard to dismiss as a lab quirk.", source: { label: "Boothby, Cooney, Sandstrom & Clark (2018), Psychological Science", url: "https://doi.org/10.1177/0956797618783714" } },
     prompt: "After a first conversation with a stranger, people typically…",
     options: ["Underestimate how much the other person liked them", "Overestimate it"],
     why: "Partners liked them more than they thought (the liking gap), across lab chats and real first-year roommates. We dwell on our own awkward moments.",

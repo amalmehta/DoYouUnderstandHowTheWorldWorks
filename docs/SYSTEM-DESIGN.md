@@ -29,9 +29,10 @@ There is no server, no account and no network call after the page loads (KaTeX f
 
 ## Main flows
 
-1. **Take it.** Home → Start → 24 items, one per screen. Choose an answer (A/B or click), then confidence (1–4). It moves on as soon as you pick a confidence. Progress is saved after every item, so closing the tab resumes where you were.
-2. **Results.** One plain sentence, the calibration chart, the four domains, then "Sure but wrong" items expanded first. Every item can be opened for the why, the general principle and the source.
-3. **History.** Past attempts are listed with their overconfidence. Export saves a JSON file; Upload, drag-anywhere or ⌘V brings one back.
+1. **Take it.** Home → Start → guess your score (0–24) → 24 items, one per screen. Choose an answer (A/B or click), then confidence (1–4). It moves on as soon as you pick a confidence. Progress is saved after every item, so closing the tab resumes where you were.
+2. **Second look.** The 6 items that carry `evidence` come back, each with one new piece of information (3 strong, pointing to the right answer; 3 real but weak, pointing to the wrong one). You answer again. These answers never change the main score.
+3. **Results.** One plain sentence, the calibration chart, three reality checks (guess vs score, sure but wrong, second look), the four domains, then "Sure but wrong" items expanded first, then the second look answer by answer. Every item can be opened for the why, the general principle and the source.
+4. **History.** Past attempts are listed with their overconfidence. Export saves a JSON file; Upload, drag-anywhere or ⌘V brings one back.
 
 ## Scoring (definitions)
 
@@ -41,11 +42,16 @@ See the spec's DEFINITIONS section; the code in `scoring.js` is the source of tr
 - **Accuracy** = correct ÷ answered.
 - **Overconfidence gap** = mean stated confidence − accuracy (percentage points). Positive = overconfident.
 - **Verdict**: let SE = √(0.25 / n), the largest standard error a proportion of n items can have. |gap| ≤ 1 SE → "within noise"; 1–2 SE → "probably over/underconfident"; > 2 SE → "clearly". For 24 items, 1 SE ≈ 10 points; for a 6-item domain, ≈ 20 points.
+- **Guess check**: guess − correct, judged against √(0.25·n) ≈ 2.4 items: within 1 → about right, 1–2 → somewhat, beyond 2 → well above/below.
+- **Sure but wrong vs expected**: count of wrong answers rated ≥ 80%, next to Σ(1 − p) over those answers (the misses your own confidence predicted).
+- **Second look**: q = probability you put on the correct answer. For strong evidence, share moved = (q_after − q_before) / (0.95 − q_before); for weak, (q_before − q_after) / (q_before − 0.05). Skipped when there was no room to move. Patterns: strong ≥ 50% and weak ≤ 25% → weighs evidence; both high → defers; both low → sticks; reversed → backwards. Cut-offs are editorial, not validated; 3 items each.
 - **Brier score** = mean of (p − o)², where p is your confidence in the answer you picked and o is 1 if right, 0 if wrong. 0 is perfect; always saying "Guessing" scores 0.25.
 
 ## Key decisions and trade-offs
 
 - **Two options, not four.** With two options, "Guessing" really means 50%, so the chart's diagonal is honest. Cost: a lucky guess is right half the time, so per-item results are noisy. That's why verdicts use SE thresholds.
+- **No "delusional" label.** The author asked whether the test could gauge whether someone is "actually delusional". A quiz can't diagnose a clinical delusion, so the test reports three behaviours instead (overestimating your score, being sure but wrong, how you respond to evidence) and calls none of them a diagnosis.
+- **Weak evidence is real, not invented.** Each weak snippet is true and sourced but weak for the question asked: an opinion poll, a theory's prediction, a fact about a different period. That's what lets the round tell weighing evidence apart from deferring to it, without fabricating anything.
 - **Answers revealed only at the end.** Seeing answers mid-way would teach you to adjust and muddy the calibration reading. Cost: less instant feedback.
 - **Hand-written, cited items rather than AI-generated ones.** AI-written questions could cite sources that don't say what they claim. Cost: a fixed bank of 24, so retakes partly test memory (noted in limits).
 - **No framework, no build step.** Plain ES modules. A static page needs none, and nothing breaks when a dependency updates.
@@ -60,6 +66,7 @@ See the spec's DEFINITIONS section; the code in `scoring.js` is the source of tr
 
 ## Known limits
 
+- The second look has only 3 strong and 3 weak items, so its pattern is a hint, not a measurement. Showing the strong snippets for the right answer may teach takers to trust the app; that's why half the snippets point the other way.
 - 24 items is a small sample. Per-domain numbers are mostly "too few to tell" by design.
 - Some items are famous (e.g. the screening test). Anyone who knows them scores better without understanding more.
 - The items test whether you know well-replicated findings and base rates. That isn't the same as handling your own emotions well in the moment, which no multiple-choice item can measure.

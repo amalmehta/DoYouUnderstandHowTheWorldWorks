@@ -2,7 +2,7 @@
 
 # Do You Understand How the World Works?
 
-24 short real-world scenarios about health, politics, work and people. Pick an answer, say how sure you are, and see where your confidence matches reality. Every answer links to its source.
+24 short real-world scenarios about health, politics, work and people. Guess your score, pick answers, say how sure you are, then take a second look with new evidence. See where your confidence matches reality and whether you weigh evidence by its quality. Every answer links to its source.
 
 **[Take it →](https://amalmehta.github.io/DoYouUnderstandHowTheWorldWorks/)**
 

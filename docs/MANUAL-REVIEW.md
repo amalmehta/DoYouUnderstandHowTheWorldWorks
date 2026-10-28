@@ -17,6 +17,8 @@ What the automated tests can't check. Tick each on a real device.
 **Content (the most important part)**
 - [ ] Read every item's question, answer, why and source. Fix or cut anything you think is wrong or unfair
 - [ ] Click every source link once
+- [ ] Read the six second-look snippets: do the strong ones feel strong and the weak ones honestly weak, not misleading?
+- [ ] Take it as someone who switches on every piece of evidence: does the result say "defers"?
 
 **Live services**
 - [ ] Feedback: copies your text and opens a new GitHub issue page

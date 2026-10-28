@@ -402,9 +402,10 @@ Answers recorded 2026-10-28: for the author first, as a mirror; outcome = where 
 - Accuracy = correct / answered. Gap = mean confidence − accuracy (positive = overconfident).
 - Verdict: SE = sqrt(0.25 / n). |gap| ≤ 1 SE → within noise (or "too few items to tell" when n < 10); 1–2 SE → probably; > 2 SE → clearly.
 - Brier score = mean (p − o)²; 0 best, 0.25 = always guessing.
-- Sure but wrong = confidence ≥ 0.80 and wrong.
+- Sure but wrong = confidence ≥ 0.80 and wrong; shown next to the expected misses Σ(1 − p).
+- "Delusional" (added 2026-10-28) is never shown as a word. It is reported as three behaviours: (1) guess vs score, judged against √(0.25·n); (2) sure but wrong vs expected; (3) second look: 6 items re-asked with one piece of evidence each, 3 strong for the right answer and 3 real but weak for the wrong one; share of available room moved toward the evidence; weighs = strong ≥ 50% and weak ≤ 25% (editorial cut-offs, 3 items each). Second-look answers don't change the main score.
 - Done (v1): all 24 items take, score and review end to end; tests pass; works at 375 px and in dark mode; deployed.
-- Deferred: larger bank with random draws (retakes currently partly test memory); aggregate results across people; per-item "what others answered"; a Mac app wrapper; translations; the author's review of every item.
+- Deferred: validating the second-look cut-offs; more evidence items; a larger bank with random draws (retakes currently partly test memory); aggregate results across people; per-item "what others answered"; a Mac app wrapper; translations; the author's review of every item.
 
 OPEN QUESTIONS / ASSUMPTIONS:
 
@@ -420,6 +421,7 @@ OPEN QUESTIONS / ASSUMPTIONS:
 CHANGELOG:
 
 - 2026-10-28 — created
+- 2026-10-28 — added reality checks (score guess, sure but wrong vs expected, second look with strong and weak evidence) in response to "gauge if the person is actually delusional"
 - 2026-10-28 — v1 built: web calibration test, 24 cited items, deployed to GitHub Pages; definitions and deferred filled in
 - 2026-09-15 — added meta-instruction: built-out applications include a small feedback tab
 - 2026-09-15 — added meta-instruction: no "Claude" attribution in commits, PRs, or branches

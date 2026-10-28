@@ -1,5 +1,5 @@
 import { ITEMS, DOMAINS } from "./items.js";
-import { CONFIDENCE, score, headline, maxSE } from "./scoring.js";
+import { CONFIDENCE, score, headline, maxSE, guessCheck, secondLook, MOVE_CUTOFFS } from "./scoring.js";
 import { load, save, exportData, importData } from "./store.js";
 
 const REPO = "https://github.com/amalmehta/DoYouUnderstandHowTheWorldWorks";
@@ -65,7 +65,7 @@ function renderHome() {
   mount(`
     <section class="hero">
       <h1>Do you understand how the world works?</h1>
-      <p class="lede">24 short real-world situations about health, politics, work and people. Pick what you think is true, then say how sure you are. At the end you’ll see where your confidence matched reality, with the source behind every answer.</p>
+      <p class="lede">24 short real-world situations about health, politics, work and people. Pick what you think is true, then say how sure you are. At the end you’ll see where your confidence matched reality, how you respond to new evidence, and the source behind every answer.</p>
       <div class="cta">
         ${ip
           ? `<button class="primary big" data-act="resume">Resume · question ${ip.answers.length + 1} of ${ip.order.length}</button>
@@ -103,38 +103,83 @@ function renderHome() {
 function startAttempt() {
   const order = itemOrder();
   const flip = Object.fromEntries(order.map((id) => [id, state.settings.shuffle ? Math.random() < 0.5 : false]));
-  state.inProgress = { id: `a${Date.now().toString(36)}`, started: new Date().toISOString(), order, flip, answers: [] };
+  state.inProgress = { id: `a${Date.now().toString(36)}`, started: new Date().toISOString(), order, flip, guess: null, answers: [] };
   persist();
   go("#item");
 }
 
 // ── Item ───────────────────────────────────────────────────────────
+// One in-progress attempt has three phases: guess → 24 questions → second look.
 let pending = null; // { choice } for the item on screen
 let shownAt = 0;
+const confLabel = (p) => CONFIDENCE.find((c) => Math.abs(c.p - p) < 1e-9)?.label ?? pct(p);
+
+function phase(ip) {
+  if (!Number.isInteger(ip.guess)) return "guess";
+  return ip.answers.length < ip.order.length ? "main" : "second";
+}
 
 function renderItem() {
   const ip = state.inProgress;
-  const k = ip.answers.length;
-  if (k >= ip.order.length) return finishAttempt();
-  const item = ITEM_BY_ID[ip.order[k]];
-  if (!item) { ip.order.splice(k, 1); persist(); return renderItem(); } // item removed from the bank since
+  const ph = phase(ip);
+  if (ph === "guess") return renderGuess();
+  if (ph === "main") {
+    const item = ITEM_BY_ID[ip.order[ip.answers.length]];
+    if (!item) { ip.order.splice(ip.answers.length, 1); persist(); return renderItem(); } // removed from the bank since
+    return renderQuestion(item, ip.answers.length, ip.order.length);
+  }
+  if (!ip.second) {
+    ip.second = { order: shuffled(ip.answers.filter((a) => ITEM_BY_ID[a.id]?.evidence).map((a) => a.id)), entries: [] };
+    persist();
+  }
+  const j = ip.second.entries.length;
+  if (j >= ip.second.order.length) return finishAttempt();
+  const item = ITEM_BY_ID[ip.second.order[j]];
+  const first = ip.answers.find((a) => a.id === item.id);
+  return renderQuestion(item, j, ip.second.order.length, first);
+}
+
+function renderGuess() {
+  const n = state.inProgress.order.length;
+  mount(`
+    <div class="progress" aria-hidden="true"><i style="width:0"></i></div>
+    <div class="item-top"><span class="chip">Before you start</span><span>Reality check 1 of 3</span></div>
+    <p class="prompt">How many of the ${n} questions do you think you’ll get right?</p>
+    <form class="guess" data-form="guess">
+      <input id="guess" name="guess" type="number" inputmode="numeric" min="0" max="${n}" step="1" required placeholder="0–${n}" aria-label="Your guess">
+      <button class="primary big">Start</button>
+    </form>
+    <p class="hint">Picking at random would get about ${Math.round(n / 2)}. At the end you’ll see your guess next to your real score.</p>
+  `);
+  $("#guess").focus();
+}
+
+// first: the answer given in the main round, when this is a second look
+function renderQuestion(item, k, total, first) {
+  const ip = state.inProgress;
   const shown = ip.flip[item.id] ? [1, 0] : [0, 1];
+  const second = Boolean(first);
   pending = null;
   shownAt = performance.now();
+  const progress = second ? 1 : k / total;
   mount(`
-    <div class="progress" aria-hidden="true"><i style="width:${(k / ip.order.length) * 100}%"></i></div>
-    <div class="item-top">${chip(item.domain)}<span>${k + 1} / ${ip.order.length}</span></div>
+    <div class="progress" aria-hidden="true"><i style="width:${progress * 100}%"></i></div>
+    <div class="item-top">${second ? `<span class="chip">Second look</span>` : chip(item.domain)}<span>${k + 1} / ${total}</span></div>
+    ${second && k === 0 ? `<p class="hint">Six of your answers again, each with one new piece of information. Keep your answer or change it; your first answers still decide your main score.</p>` : ""}
     <p class="prompt">${esc(item.prompt)}</p>
+    ${second ? `
+      <p class="first-ans">Your first answer: “${esc(item.options[first.choice])}” · ${esc(confLabel(first.p))}</p>
+      <div class="newinfo"><div class="k">New information</div><p>${esc(item.evidence.text)}</p><div class="src">${esc(item.evidence.source.label)}</div></div>` : ""}
     <div class="options" role="group" aria-label="Answers">
       ${shown.map((oi, n) => `<button class="opt" data-choice="${oi}" aria-pressed="false"><kbd>${"AB"[n]}</kbd><span>${esc(item.options[oi])}</span></button>`).join("")}
     </div>
     <div class="conf" aria-hidden="true">
-      <p>How sure are you?</p>
+      <p>How sure are you${second ? " now" : ""}?</p>
       <div class="row4">${CONFIDENCE.map((c) => `<button data-conf="${c.p}" tabindex="-1"><b>${pct(c.p)}</b><span>${c.label} <kbd>${c.key}</kbd></span></button>`).join("")}</div>
     </div>
     <div class="item-nav">
-      ${k > 0 ? `<button class="ghost" data-act="back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Previous</button>` : "<span></span>"}
-      <span>Answers are revealed at the end</span>
+      <button class="ghost" data-act="back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Previous</button>
+      <span>${second ? "Answers are revealed next" : "Answers are revealed at the end"}</span>
     </div>
   `);
 }
@@ -151,25 +196,44 @@ function choose(choice) {
 function confide(p) {
   if (!pending) return;
   const ip = state.inProgress;
-  const item = ITEM_BY_ID[ip.order[ip.answers.length]];
   $(`.conf [data-conf="${p}"]`, view)?.setAttribute("aria-pressed", "true");
-  ip.answers.push({ id: item.id, domain: item.domain, choice: pending.choice, correct: pending.choice === 0, p, ms: Math.round(performance.now() - shownAt) });
+  if (phase(ip) === "main") {
+    const item = ITEM_BY_ID[ip.order[ip.answers.length]];
+    ip.answers.push({ id: item.id, domain: item.domain, choice: pending.choice, correct: pending.choice === 0, p, ms: Math.round(performance.now() - shownAt) });
+  } else {
+    const id = ip.second.order[ip.second.entries.length];
+    const first = ip.answers.find((a) => a.id === id);
+    ip.second.entries.push({ id, kind: ITEM_BY_ID[id].evidence.kind, before: { choice: first.choice, p: first.p }, after: { choice: pending.choice, p } });
+  }
   pending = null;
   persist();
   setTimeout(renderItem, 140); // let the pressed state show before moving on
 }
 
+function setGuess(value) {
+  const n = state.inProgress.order.length;
+  const g = Number(value);
+  if (value === "" || !Number.isInteger(g) || g < 0 || g > n) return toast(`Enter a whole number from 0 to ${n}.`);
+  state.inProgress.guess = g;
+  persist();
+  renderItem();
+}
+
 function back() {
   const ip = state.inProgress;
-  if (!ip?.answers.length) return;
-  ip.answers.pop();
+  if (!ip) return;
+  const ph = phase(ip);
+  if (ph === "second" && ip.second?.entries.length) ip.second.entries.pop();
+  else if (ip.answers.length) { ip.answers.pop(); delete ip.second; }
+  else if (ph !== "guess") ip.guess = null;
+  else return;
   persist();
   renderItem();
 }
 
 function finishAttempt() {
   const ip = state.inProgress;
-  const attempt = { id: ip.id, date: new Date().toISOString(), started: ip.started, answers: ip.answers };
+  const attempt = { id: ip.id, date: new Date().toISOString(), started: ip.started, guess: ip.guess, answers: ip.answers, secondLook: ip.second?.entries ?? [] };
   state.attempts.push(attempt);
   state.inProgress = null;
   persist();
@@ -207,6 +271,61 @@ function reviewItem(a, open) {
       <p class="principle">${esc(item.principle)}</p>
       <p class="src">Source: <a href="${esc(item.source.url)}" target="_blank" rel="noopener">${esc(item.source.label)}</a>${item.illustrative ? `<span class="badge">numbers are illustrative</span>` : ""}</p>
     </div></details>`;
+}
+
+const movedText = (x) => (x === null ? "—" : x < 0 ? `moved away (${Math.round(-x * 100)}%)` : `moved ${Math.round(x * 100)}% of the way`);
+const bar = (x) => `<div class="meter"><i style="width:${Math.max(0, x ?? 0) * 100}%"></i></div>`;
+
+function realityChecks(attempt, s) {
+  const o = s.overall;
+  const g = guessCheck(attempt.guess, o.correct, o.n);
+  const sure = attempt.answers.filter((a) => a.p >= 0.8);
+  const expectedWrong = sure.reduce((t, a) => t + (1 - a.p), 0);
+  const sl = attempt.secondLook?.length ? secondLook(attempt.secondLook) : null;
+  return `<section class="block">
+    <h2>Reality checks</h2>
+    <p class="hint">Three ways of asking whether your picture of the world matches the world. Each describes what you did; none is a diagnosis.</p>
+    <div class="checks">
+      ${g ? `<div class="check"><span class="k">Your guess</span><b>${g.guess} → ${g.correct}</b>
+        <span>You guessed ${g.guess} of ${g.n} right and got ${g.correct}. ${esc(g.text)}.</span></div>` : ""}
+      <div class="check"><span class="k">Sure but wrong</span>${sure.length
+        ? `<b>${s.sureButWrong.length} of ${sure.length}</b>
+        <span>answers you rated Fairly sure or Certain were wrong. Your own confidence predicted about ${Math.round(expectedWrong)}.</span>`
+        : `<b>—</b><span>You didn’t rate any answer Fairly sure or Certain, so there’s nothing to check here.</span>`}</div>
+      ${sl ? `<div class="check"><span class="k">Second look</span>
+        <div class="mini"><span>Strong evidence: ${movedText(sl.strong)}</span>${bar(sl.strong)}</div>
+        <div class="mini weak"><span>Weak evidence: ${movedText(sl.weak)}</span>${bar(sl.weak)}</div>
+        <span>${esc(sl.text)}</span></div>` : ""}
+    </div>
+    <details class="fold">
+      <summary>What these mean, and how they can mislead</summary>
+      <p style="margin-top:12px"><b>Your guess.</b> A guess well above your score means your sense of what you know runs ahead of what you know. It’s one number from one sitting: a few lucky or unlucky coin-flip answers move your score by 2–3, so only a miss of more than about ${Math.round(Math.sqrt(0.25 * o.n))} counts.</p>
+      <p><b>Sure but wrong.</b> If you say “80% sure” five times, about one should be wrong. Adding up (1 − confidence) over your sure answers gives how many misses your own confidence predicted. Many more than that is the clearest sign of holding beliefs more firmly than the evidence allows.</p>
+      <p><b>Second look.</b> Think of a good judge: a fingerprint should change their mind, a rumour shouldn’t. Three pieces of new information were strong (randomised trials, official data, repeated studies) and pointed to the right answer. Three were real but weak (opinion polls, a theory’s prediction, a true fact about a different era) and pointed to the wrong one. “Moved 60% of the way” means you closed 60% of the gap between your first answer and the most you could have agreed with the evidence.</p>
+      <p>Moving for both kinds suggests deferring to whatever you’re shown; moving for neither suggests sticking to a first answer. The cut-offs (${MOVE_CUTOFFS.strong * 100}% for strong, ${MOVE_CUTOFFS.weak * 100}% for weak) were chosen by hand, not validated, and with three items each a single answer can change the pattern.</p>
+      <p class="hint">General rule to reuse: weigh new information by how it was produced, not by whether it agrees with you.</p>
+    </details>
+  </section>`;
+}
+
+function secondLookReview(attempt) {
+  if (!attempt.secondLook?.length) return "";
+  const rows = secondLook(attempt.secondLook).rows.map((r) => {
+    const item = ITEM_BY_ID[r.id];
+    if (!item?.evidence) return "";
+    const ev = item.evidence;
+    return `<details class="review">
+      <summary><span class="mark ${ev.kind === "strong" ? "ok" : "no"}">${ev.kind === "strong" ? "S" : "W"}</span>
+        <span class="q">${esc(item.prompt)}</span><span class="yours">${r.switched ? "changed" : "kept"}</span></summary>
+      <div class="body">
+        <p>First: “${esc(item.options[r.before.choice])}” (${esc(confLabel(r.before.p))}). Then: “${esc(item.options[r.after.choice])}” (${esc(confLabel(r.after.p))}).</p>
+        <p>New information: ${esc(ev.text)}</p>
+        <p class="principle">${ev.kind === "strong" ? "Strong evidence, pointing to the right answer." : "Weak evidence, pointing to the wrong answer."} ${esc(ev.lesson)}</p>
+        <p class="src">Source: <a href="${esc(ev.source.url)}" target="_blank" rel="noopener">${esc(ev.source.label)}</a></p>
+      </div></details>`;
+  }).join("");
+  return `<section class="block"><h2>Second look, answer by answer</h2>
+    <p class="hint">S = strong evidence, W = weak evidence.</p>${rows}</section>`;
 }
 
 function renderResults(id) {
@@ -247,6 +366,8 @@ function renderResults(id) {
       </div>
     </div>
 
+    ${realityChecks(attempt, s)}
+
     <section class="block">
       <h2>By domain</h2>
       <div class="legend-line"><span><i></i>share right</span><span><u></u>how sure you were on average</span></div>
@@ -257,6 +378,8 @@ function renderResults(id) {
     ${wrongSure.length ? `<section class="block"><h2>Sure but wrong (${wrongSure.length})</h2>
       <p class="hint">Answers you rated “Fairly sure” or “Certain” that were wrong. These are where your picture of the world is most out of date.</p>
       ${wrongSure.map((a) => reviewItem(a, true)).join("")}</section>` : ""}
+
+    ${secondLookReview(attempt)}
 
     <section class="block"><h2>${wrongSure.length ? "Everything else" : "All answers"}</h2>
       ${rest.map((a) => reviewItem(a, false)).join("")}</section>
@@ -379,6 +502,12 @@ $("#open-settings").addEventListener("click", openSettings);
 
 const fbDlg = $("#feedback");
 $("#feedback-tab").addEventListener("click", () => fbDlg.showModal());
+
+document.addEventListener("submit", (e) => {
+  if (e.target.dataset.form !== "guess") return;
+  e.preventDefault();
+  setGuess(e.target.guess.value);
+});
 
 // ── One click/keyboard handler for the whole page ──────────────────
 document.addEventListener("click", (e) => {

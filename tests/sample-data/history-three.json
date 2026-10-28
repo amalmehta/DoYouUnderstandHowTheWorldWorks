@@ -11,10 +11,10 @@
         {
           "id": "h1",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 7663
+          "ms": 5043
         },
         {
           "id": "h2",
@@ -22,7 +22,7 @@
           "choice": 0,
           "correct": true,
           "p": 0.95,
-          "ms": 8453
+          "ms": 12288
         },
         {
           "id": "h3",
@@ -30,15 +30,15 @@
           "choice": 0,
           "correct": true,
           "p": 0.95,
-          "ms": 10496
+          "ms": 5186
         },
         {
           "id": "h4",
           "domain": "health",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 9695
+          "ms": 4194
         },
         {
           "id": "h5",
@@ -46,47 +46,47 @@
           "choice": 1,
           "correct": false,
           "p": 0.95,
-          "ms": 11961
+          "ms": 12081
         },
         {
           "id": "h6",
           "domain": "health",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 12894
+          "ms": 5908
         },
         {
           "id": "p1",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 8384
+          "ms": 10299
         },
         {
           "id": "p2",
           "domain": "politics",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 12776
+          "ms": 5052
         },
         {
           "id": "p3",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 4713
+          "ms": 4143
         },
         {
           "id": "p4",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 11944
+          "ms": 9324
         },
         {
           "id": "p5",
@@ -94,31 +94,31 @@
           "choice": 1,
           "correct": false,
           "p": 0.95,
-          "ms": 10643
+          "ms": 5153
         },
         {
           "id": "p6",
           "domain": "politics",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 11083
+          "ms": 10433
         },
         {
           "id": "w1",
           "domain": "work",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 6143
+          "ms": 8931
         },
         {
           "id": "w2",
           "domain": "work",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 4937
+          "ms": 10997
         },
         {
           "id": "w3",
@@ -126,15 +126,15 @@
           "choice": 1,
           "correct": false,
           "p": 0.95,
-          "ms": 11202
+          "ms": 10603
         },
         {
           "id": "w4",
           "domain": "work",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 10403
+          "ms": 4902
         },
         {
           "id": "w5",
@@ -142,23 +142,23 @@
           "choice": 0,
           "correct": true,
           "p": 0.95,
-          "ms": 7987
+          "ms": 9519
         },
         {
           "id": "w6",
           "domain": "work",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 9070
+          "ms": 9230
         },
         {
           "id": "s1",
           "domain": "people",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.95,
-          "ms": 6435
+          "ms": 6007
         },
         {
           "id": "s2",
@@ -166,23 +166,23 @@
           "choice": 1,
           "correct": false,
           "p": 0.95,
-          "ms": 7906
+          "ms": 9665
         },
         {
           "id": "s3",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 5688
+          "ms": 6155
         },
         {
           "id": "s4",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 6083
+          "ms": 4475
         },
         {
           "id": "s5",
@@ -190,15 +190,15 @@
           "choice": 1,
           "correct": false,
           "p": 0.95,
-          "ms": 11399
+          "ms": 7661
         },
         {
           "id": "s6",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.95,
-          "ms": 10146
+          "ms": 9937
         }
       ]
     },
@@ -213,47 +213,47 @@
           "choice": 1,
           "correct": false,
           "p": 0.8,
-          "ms": 5043
+          "ms": 4942
         },
         {
           "id": "h2",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 12288
+          "ms": 8508
         },
         {
           "id": "h3",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 5186
+          "ms": 7824
         },
         {
           "id": "h4",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 4194
+          "ms": 11115
         },
         {
           "id": "h5",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 12081
+          "ms": 12170
         },
         {
           "id": "h6",
           "domain": "health",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 5908
+          "ms": 5712
         },
         {
           "id": "p1",
@@ -261,7 +261,7 @@
           "choice": 1,
           "correct": false,
           "p": 0.8,
-          "ms": 10299
+          "ms": 5391
         },
         {
           "id": "p2",
@@ -269,23 +269,23 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 5052
+          "ms": 12538
         },
         {
           "id": "p3",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 4143
+          "ms": 4508
         },
         {
           "id": "p4",
           "domain": "politics",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.8,
-          "ms": 9324
+          "ms": 6358
         },
         {
           "id": "p5",
@@ -293,23 +293,23 @@
           "choice": 1,
           "correct": false,
           "p": 0.8,
-          "ms": 5153
+          "ms": 11828
         },
         {
           "id": "p6",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 10433
+          "ms": 6493
         },
         {
           "id": "w1",
           "domain": "work",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.8,
-          "ms": 8931
+          "ms": 4268
         },
         {
           "id": "w2",
@@ -317,15 +317,15 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 10997
+          "ms": 9035
         },
         {
           "id": "w3",
           "domain": "work",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.8,
-          "ms": 10603
+          "ms": 6908
         },
         {
           "id": "w4",
@@ -333,7 +333,7 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 4902
+          "ms": 6041
         },
         {
           "id": "w5",
@@ -341,7 +341,7 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 9519
+          "ms": 4400
         },
         {
           "id": "w6",
@@ -349,7 +349,7 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 9230
+          "ms": 9664
         },
         {
           "id": "s1",
@@ -357,15 +357,15 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 6007
+          "ms": 11273
         },
         {
           "id": "s2",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 9665
+          "ms": 8597
         },
         {
           "id": "s3",
@@ -373,23 +373,23 @@
           "choice": 1,
           "correct": false,
           "p": 0.8,
-          "ms": 6155
+          "ms": 7492
         },
         {
           "id": "s4",
           "domain": "people",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.8,
-          "ms": 4475
+          "ms": 12687
         },
         {
           "id": "s5",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.8,
-          "ms": 7661
+          "ms": 12658
         },
         {
           "id": "s6",
@@ -397,7 +397,7 @@
           "choice": 1,
           "correct": false,
           "p": 0.8,
-          "ms": 9937
+          "ms": 9430
         }
       ]
     },
@@ -412,127 +412,127 @@
           "choice": 0,
           "correct": true,
           "p": 0.95,
-          "ms": 12275
+          "ms": 4589
         },
         {
           "id": "h2",
           "domain": "health",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.8,
-          "ms": 7824
+          "ms": 7880
         },
         {
           "id": "h3",
           "domain": "health",
           "choice": 0,
           "correct": true,
-          "p": 0.95,
-          "ms": 10544
+          "p": 0.8,
+          "ms": 8450
         },
         {
           "id": "h4",
           "domain": "health",
           "choice": 0,
           "correct": true,
-          "p": 0.95,
-          "ms": 5712
+          "p": 0.5,
+          "ms": 4712
         },
         {
           "id": "h5",
           "domain": "health",
           "choice": 0,
           "correct": true,
-          "p": 0.8,
-          "ms": 5127
+          "p": 0.65,
+          "ms": 5801
         },
         {
           "id": "h6",
           "domain": "health",
-          "choice": 1,
-          "correct": false,
-          "p": 0.95,
-          "ms": 4508
+          "choice": 0,
+          "correct": true,
+          "p": 0.8,
+          "ms": 4470
         },
         {
           "id": "p1",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.5,
-          "ms": 12467
+          "ms": 11825
         },
         {
           "id": "p2",
           "domain": "politics",
           "choice": 1,
           "correct": false,
-          "p": 0.95,
-          "ms": 6493
+          "p": 0.5,
+          "ms": 6864
         },
         {
           "id": "p3",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
-          "p": 0.5,
-          "ms": 8229
+          "choice": 1,
+          "correct": false,
+          "p": 0.65,
+          "ms": 11171
         },
         {
           "id": "p4",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
-          "p": 0.8,
-          "ms": 6908
+          "choice": 1,
+          "correct": false,
+          "p": 0.5,
+          "ms": 5849
         },
         {
           "id": "p5",
           "domain": "politics",
           "choice": 0,
           "correct": true,
-          "p": 0.65,
-          "ms": 4495
+          "p": 0.8,
+          "ms": 4299
         },
         {
           "id": "p6",
           "domain": "politics",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.5,
-          "ms": 9664
+          "ms": 10785
         },
         {
           "id": "w1",
           "domain": "work",
           "choice": 1,
           "correct": false,
-          "p": 0.65,
-          "ms": 10553
+          "p": 0.5,
+          "ms": 11321
         },
         {
           "id": "w2",
           "domain": "work",
           "choice": 0,
           "correct": true,
-          "p": 0.8,
-          "ms": 7492
+          "p": 0.65,
+          "ms": 6690
         },
         {
           "id": "w3",
           "domain": "work",
           "choice": 1,
           "correct": false,
-          "p": 0.8,
-          "ms": 10936
+          "p": 0.65,
+          "ms": 11830
         },
         {
           "id": "w4",
           "domain": "work",
           "choice": 0,
           "correct": true,
-          "p": 0.95,
-          "ms": 9430
+          "p": 0.8,
+          "ms": 11800
         },
         {
           "id": "w5",
@@ -540,15 +540,15 @@
           "choice": 0,
           "correct": true,
           "p": 0.95,
-          "ms": 4589
+          "ms": 10846
         },
         {
           "id": "w6",
           "domain": "work",
           "choice": 0,
           "correct": true,
-          "p": 0.8,
-          "ms": 7880
+          "p": 0.95,
+          "ms": 6569
         },
         {
           "id": "s1",
@@ -556,47 +556,47 @@
           "choice": 0,
           "correct": true,
           "p": 0.8,
-          "ms": 8450
+          "ms": 11776
         },
         {
           "id": "s2",
           "domain": "people",
-          "choice": 0,
-          "correct": true,
+          "choice": 1,
+          "correct": false,
           "p": 0.5,
-          "ms": 4712
+          "ms": 9927
         },
         {
           "id": "s3",
           "domain": "people",
           "choice": 0,
           "correct": true,
-          "p": 0.65,
-          "ms": 5801
+          "p": 0.95,
+          "ms": 11162
         },
         {
           "id": "s4",
           "domain": "people",
           "choice": 0,
           "correct": true,
-          "p": 0.8,
-          "ms": 4470
+          "p": 0.95,
+          "ms": 6086
         },
         {
           "id": "s5",
           "domain": "people",
-          "choice": 1,
-          "correct": false,
+          "choice": 0,
+          "correct": true,
           "p": 0.5,
-          "ms": 11825
+          "ms": 9198
         },
         {
           "id": "s6",
           "domain": "people",
-          "choice": 1,
-          "correct": false,
-          "p": 0.5,
-          "ms": 6864
+          "choice": 0,
+          "correct": true,
+          "p": 0.95,
+          "ms": 11681
         }
       ]
     }

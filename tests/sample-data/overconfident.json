@@ -200,6 +200,81 @@
           "p": 0.8,
           "ms": 4334
         }
+      ],
+      "guess": 22,
+      "secondLook": [
+        {
+          "id": "h4",
+          "kind": "weak",
+          "before": {
+            "choice": 0,
+            "p": 0.8
+          },
+          "after": {
+            "choice": 0,
+            "p": 0.8
+          }
+        },
+        {
+          "id": "h5",
+          "kind": "strong",
+          "before": {
+            "choice": 0,
+            "p": 0.95
+          },
+          "after": {
+            "choice": 0,
+            "p": 0.95
+          }
+        },
+        {
+          "id": "p1",
+          "kind": "weak",
+          "before": {
+            "choice": 0,
+            "p": 0.8
+          },
+          "after": {
+            "choice": 0,
+            "p": 0.8
+          }
+        },
+        {
+          "id": "p2",
+          "kind": "strong",
+          "before": {
+            "choice": 0,
+            "p": 0.95
+          },
+          "after": {
+            "choice": 0,
+            "p": 0.95
+          }
+        },
+        {
+          "id": "w5",
+          "kind": "weak",
+          "before": {
+            "choice": 1,
+            "p": 0.8
+          },
+          "after": {
+            "choice": 1,
+            "p": 0.8
+          }
+        },
+        {
+          "id": "s3",
+          "kind": "strong",
+          "before": {
+            "choice": 1,
+            "p": 0.95
+          },
+          "after": {
+            "choice": 1,
+            "p": 0.95
+          }
+        }
       ]
     }
   ]

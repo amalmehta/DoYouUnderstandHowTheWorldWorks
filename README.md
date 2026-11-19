@@ -20,3 +20,7 @@ flowchart LR
 - [Prompt log](docs/PROMPTS.md)
 
 Answers stay in your browser. No accounts, no tracking.
+
+## How it was built
+
+How this was built and how it works, with diagrams: [docs/HOW-IT-WAS-BUILT.md](docs/HOW-IT-WAS-BUILT.md)

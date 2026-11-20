@@ -6,7 +6,7 @@ It is a one-page web quiz. You answer 24 two-choice questions about how health, 
 ## Build history
 
 ```mermaid
-flowchart LR
+flowchart TD
   Idea["Idea: a survey of whether someone understands how the world works, socially and emotionally too"]
   Dec["Decisions asked in sessions: none recorded"]
   M1["First version: 24 cited scenarios. 2026-10-28"]
